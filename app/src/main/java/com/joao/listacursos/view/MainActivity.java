@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
     public void mostrarMensagem(String mensagem) {
         Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show(); // Mostra uma mensagem longa para "Volte numa próxima"
     }
-
     // Exibe um diálogo simples com título e mensagem.
     public void mostrarDialog(String titulo, String mensagem) {
         new AlertDialog.Builder(this)
