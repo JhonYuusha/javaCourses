@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#F5F5F5">
+
+    <!-- Título do aplicativo -->
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="App Lista Cursos"
+        android:textSize="24sp"
+        android:textColor="#2196F3"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Campo para entrada do primeiro nome -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        style="@style/CustomTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPrimeiroNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Primeiro Nome"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Campo para entrada do sobrenome -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        style="@style/CustomTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtSobrenome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sobrenome"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Campo para entrada do telefone -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        style="@style/CustomTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtTelefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Telefone"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Spinner para seleção de cursos -->
+    <Spinner
+        android:id="@+id/spinnerCursos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Container para os botões Salvar e Limpar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <!-- Botão Salvar (esquerda, azul, arredondado) -->
+        <Button
+            android:id="@+id/btnSalvar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Salvar"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#2196F3"
+            android:backgroundTintMode="src_in"
+            android:padding="12dp"
+            android:layout_marginEnd="12dp" />
+
+        <!-- Botão Limpar (direita, azul, arredondado) -->
+        <Button
+            android:id="@+id/btnLimpar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Limpar"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#2196F3"
+            android:backgroundTintMode="src_in"
+            android:padding="12dp"
+            android:layout_marginStart="12dp" />
+    </LinearLayout>
+
+    <!-- Container para os botões Ver Meus Dados e Finalizar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Botão Ver Meus Dados (esquerda, azul único, arredondado) -->
+        <Button
+            android:id="@+id/btnMeusDados"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ver Meus Dados"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#2196F3"
+            android:backgroundTintMode="src_in"
+            android:padding="12dp"
+            android:layout_marginEnd="12dp" />
+
+        <!-- Botão Finalizar (direita, azul único, arredondado) -->
+        <Button
+            android:id="@+id/btnFinalizar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Finalizar"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#2196F3"
+            android:backgroundTintMode="src_in"
+            android:padding="12dp"
+            android:layout_marginStart="12dp" />
+    </LinearLayout>
+
+</LinearLayout>
