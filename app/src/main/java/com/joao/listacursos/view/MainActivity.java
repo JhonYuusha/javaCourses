@@ -10,7 +10,6 @@ import com.joao.listacursos.controller.MainController;
 import com.joao.listacursos.model.AlunoRepository;
 import com.joao.listacursos.util.SpinnerConfig;
 
-// Classe responsável por configurar a interface e delegar eventos ao controlador.
 public class MainActivity extends AppCompatActivity {
     private TextInputEditText edtPrimeiroNome, edtSobrenome, edtTelefone;
     private Spinner spinnerCursos;
@@ -25,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         initializeComponents();
         setupController();
         setupSpinner();
+        controller.carregarDadosSalvos(); // Carrega dados salvos na inicialização
         setupListeners();
     }
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupSpinner() {
-        SpinnerConfig.configureCursosSpinner(this, spinnerCursos);
+        SpinnerConfig.getInstance(this).configure(this, spinnerCursos);
     }
 
     private void setupListeners() {
@@ -64,11 +64,26 @@ public class MainActivity extends AppCompatActivity {
         btnFinalizar.setOnClickListener(v -> controller.finalizarApp());
     }
 
-    // Métodos chamados pelo controlador
     public void clearFields() {
         edtPrimeiroNome.setText("");
         edtSobrenome.setText("");
         edtTelefone.setText("");
         spinnerCursos.setSelection(0);
+    }
+
+    public void setPrimeiroNome(String primeiroNome) {
+        edtPrimeiroNome.setText(primeiroNome);
+    }
+
+    public void setSobrenome(String sobrenome) {
+        edtSobrenome.setText(sobrenome);
+    }
+
+    public void setTelefone(String telefone) {
+        edtTelefone.setText(telefone);
+    }
+
+    public void setCurso(String curso) {
+        SpinnerConfig.getInstance(this).selectCurso(spinnerCursos, curso);
     }
 };
