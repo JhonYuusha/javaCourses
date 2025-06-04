@@ -2,36 +2,49 @@ package com.joao.listacursos.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
-// Classe responsável por gerenciar os dados pessoais do aluno (Model) usando SharedPreferences.
 public class AlunoRepository {
-    private static final String PREFS = "dados_usuario"; // Nome do SharedPreferences para dados pessoais
-    private final Context context; // Contexto da aplicação
+    private static final String PREFS_FILE = "dados_usuario";
+    private static final String KEY_NOME = "nome";
+    private static final String KEY_TELEFONE = "telefone";
+    private static final String KEY_CURSO = "curso";
+    private final Context context;
+    private static final String TAG = "AlunoRepository";
 
-    // Construtor que recebe o contexto da aplicação
     public AlunoRepository(Context context) {
         this.context = context;
     }
 
-    // Salva os dados pessoais do usuário (nome completo, telefone, curso) no SharedPreferences.
     public void salvarDadosPessoais(String nome, String telefone, String curso) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("nome", nome); // Salva o nome completo
-        editor.putString("telefone", telefone); // Salva o telefone
-        editor.putString("curso", curso); // Salva o curso
-        editor.apply(); // Aplica as alterações de forma assíncrona
+        editor.putString(KEY_NOME, nome);
+        editor.putString(KEY_TELEFONE, telefone);
+        editor.putString(KEY_CURSO, curso);
+        editor.apply();
+        Log.d(TAG, "Dados salvos: nome=" + nome + ", telefone=" + telefone + ", curso=" + curso);
     }
 
-    // Recupera os dados pessoais do usuário do SharedPreferences, retornando um objeto Aluno ou null se não existirem.
     public Aluno getDadosPessoais() {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        String nome = prefs.getString("nome", null); // Recupera o nome completo
-        String telefone = prefs.getString("telefone", null); // Recupera o telefone
-        String curso = prefs.getString("curso", null); // Recupera o curso
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+        String nome = prefs.getString(KEY_NOME, null);
+        String telefone = prefs.getString(KEY_TELEFONE, null);
+        String curso = prefs.getString(KEY_CURSO, null);
+        Log.d(TAG, "Dados lidos: nome=" + nome + ", telefone=" + telefone + ", curso=" + curso);
         if (nome != null && telefone != null && curso != null) {
-            return new Aluno(nome, telefone, curso); // Retorna um objeto Aluno se todos os dados existirem
+            return new Aluno(nome, telefone, curso);
         }
-        return null; // Retorna null se algum dado estiver faltando
+        return null;
+    }
+
+    public boolean excluirDadosPessoais() {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
+        boolean isCleared = prefs.getString(KEY_NOME, null) == null;
+        Log.d(TAG, "Dados excluídos: " + (isCleared ? "Sucesso" : "Falha"));
+        return isCleared;
     }
 };

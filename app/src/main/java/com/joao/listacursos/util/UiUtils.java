@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.joao.listacursos.view.MainActivity;
 
-// Classe utilitária para gerenciar interações de UI (Toast, Dialog, finalização).
 public class UiUtils {
 
     public static void showToast(Context context, String message) {
