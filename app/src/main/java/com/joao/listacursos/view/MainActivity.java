@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         initializeComponents();
         setupController();
         setupSpinner();
-        controller.carregarDadosSalvos(); // Carrega dados salvos na inicialização
+        controller.carregarDadosSalvos();
         setupListeners();
     }
 

@@ -21,11 +21,10 @@ public class MainController {
             UiUtils.showToast(view, "Preencha todos os campos corretamente");
             return;
         }
-        String nomeCompleto = primeiroNome + " " + sobrenome;
-        repository.salvarDadosPessoais(nomeCompleto, telefone, curso);
+        repository.salvarDadosPessoais(primeiroNome, sobrenome, telefone, curso);
         UiUtils.showToast(view, "Dados salvos com sucesso!");
         view.clearFields();
-        Log.d(TAG, "Salvando dados: " + nomeCompleto + ", " + telefone + ", " + curso);
+        Log.d(TAG, "Salvando dados: primeiroNome=" + primeiroNome + ", sobrenome=" + sobrenome + ", telefone=" + telefone + ", curso=" + curso);
     }
 
     public void verMeusDados() {
@@ -33,7 +32,7 @@ public class MainController {
         if (aluno == null) {
             UiUtils.showToast(view, "Nenhum dado encontrado");
         } else {
-            String mensagem = "Curso: " + aluno.getCurso() + "\nNome: " + aluno.getNome() + "\nTelefone: " + aluno.getTelefone();
+            String mensagem = "Curso: " + aluno.getCurso() + "\nPrimeiro Nome: " + aluno.getPrimeiroNome() + "\nSobrenome: " + aluno.getSobrenome() + "\nTelefone: " + aluno.getTelefone();
             UiUtils.showDialog(view, "Seus Dados", mensagem);
         }
     }
@@ -59,14 +58,11 @@ public class MainController {
     public void carregarDadosSalvos() {
         Aluno aluno = repository.getDadosPessoais();
         if (aluno != null) {
-            String[] nomeParts = aluno.getNome().split(" ", 2);
-            String primeiroNome = nomeParts[0];
-            String sobrenome = nomeParts.length > 1 ? nomeParts[1] : "";
-            view.setPrimeiroNome(primeiroNome);
-            view.setSobrenome(sobrenome);
+            view.setPrimeiroNome(aluno.getPrimeiroNome());
+            view.setSobrenome(aluno.getSobrenome());
             view.setTelefone(aluno.getTelefone());
             view.setCurso(aluno.getCurso());
-            Log.d(TAG, "Dados carregados na inicialização: " + aluno.getNome() + ", " + aluno.getTelefone() + ", " + aluno.getCurso());
+            Log.d(TAG, "Dados carregados na inicialização: primeiroNome=" + aluno.getPrimeiroNome() + ", sobrenome=" + aluno.getSobrenome() + ", telefone=" + aluno.getTelefone() + ", curso=" + aluno.getCurso());
         }
     }
 };

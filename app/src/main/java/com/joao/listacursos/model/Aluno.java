@@ -1,21 +1,24 @@
 package com.joao.listacursos.model;
 
-// Classe que representa um aluno com nome completo, telefone e curso.
 public class Aluno {
-    private String nome;    // Nome completo do aluno (Primeiro Nome + Sobrenome)
-    private String telefone; // Telefone do aluno
-    private String curso;   // Curso selecionado pelo aluno
+    private String primeiroNome;
+    private String sobrenome;
+    private String telefone;
+    private String curso;
 
-    // Construtor
-    public Aluno(String nome, String telefone, String curso) {
-        this.nome = nome;
+    public Aluno(String primeiroNome, String sobrenome, String telefone, String curso) {
+        this.primeiroNome = primeiroNome;
+        this.sobrenome = sobrenome;
         this.telefone = telefone;
         this.curso = curso;
     }
 
-    // Getters
-    public String getNome() {
-        return nome;
+    public String getPrimeiroNome() {
+        return primeiroNome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
     }
 
     public String getTelefone() {
@@ -25,4 +28,4 @@ public class Aluno {
     public String getCurso() {
         return curso;
     }
-};
+}
