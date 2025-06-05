@@ -14,9 +14,11 @@ public class MainController {
     public MainController(AlunoRepository repository, MainActivity view) {
         this.repository = repository;
         this.view = view;
+        Log.d(TAG, "MainController inicializado");
     }
 
     public void salvarDados(String primeiroNome, String sobrenome, String telefone, String curso) {
+        Log.d(TAG, "salvarDados chamado com: primeiroNome=" + primeiroNome + ", sobrenome=" + sobrenome + ", telefone=" + telefone + ", curso=" + curso);
         if (primeiroNome.trim().isEmpty() || sobrenome.trim().isEmpty() || telefone.trim().isEmpty() || curso.equals("Selecione um curso")) {
             UiUtils.showToast(view, "Preencha todos os campos corretamente");
             return;
@@ -24,10 +26,10 @@ public class MainController {
         repository.salvarDadosPessoais(primeiroNome, sobrenome, telefone, curso);
         UiUtils.showToast(view, "Dados salvos com sucesso!");
         view.clearFields();
-        Log.d(TAG, "Salvando dados: primeiroNome=" + primeiroNome + ", sobrenome=" + sobrenome + ", telefone=" + telefone + ", curso=" + curso);
     }
 
     public void verMeusDados() {
+        Log.d(TAG, "verMeusDados chamado");
         Aluno aluno = repository.getDadosPessoais();
         if (aluno == null) {
             UiUtils.showToast(view, "Nenhum dado encontrado");
@@ -38,6 +40,7 @@ public class MainController {
     }
 
     public void limparCampos(String primeiroNome, String sobrenome, String telefone, int spinnerPosition) {
+        Log.d(TAG, "limparCampos chamado");
         boolean camposVazios = primeiroNome.trim().isEmpty() && sobrenome.trim().isEmpty() && telefone.trim().isEmpty() && spinnerPosition == 0;
         boolean dadosExcluidos = repository.excluirDadosPessoais();
 
@@ -51,11 +54,13 @@ public class MainController {
     }
 
     public void finalizarApp() {
+        Log.d(TAG, "finalizarApp chamado");
         UiUtils.showToast(view, "Volte numa próxima", true);
         UiUtils.finishWithDelay(view, 2000);
     }
 
     public void carregarDadosSalvos() {
+        Log.d(TAG, "carregarDadosSalvos chamado");
         Aluno aluno = repository.getDadosPessoais();
         if (aluno != null) {
             view.setPrimeiroNome(aluno.getPrimeiroNome());
@@ -63,6 +68,8 @@ public class MainController {
             view.setTelefone(aluno.getTelefone());
             view.setCurso(aluno.getCurso());
             Log.d(TAG, "Dados carregados na inicialização: primeiroNome=" + aluno.getPrimeiroNome() + ", sobrenome=" + aluno.getSobrenome() + ", telefone=" + aluno.getTelefone() + ", curso=" + aluno.getCurso());
+        } else {
+            Log.d(TAG, "Nenhum dado para carregar na inicialização");
         }
     }
 };
