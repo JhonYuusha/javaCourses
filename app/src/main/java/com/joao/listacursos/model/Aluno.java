@@ -1,10 +1,10 @@
 package com.joao.listacursos.model;
 
 public class Aluno {
-    private String primeiroNome;
-    private String sobrenome;
-    private String telefone;
-    private String curso;
+    private final String primeiroNome;
+    private final String sobrenome;
+    private final String telefone;
+    private final String curso;
 
     public Aluno(String primeiroNome, String sobrenome, String telefone, String curso) {
         this.primeiroNome = primeiroNome;
@@ -28,4 +28,4 @@ public class Aluno {
     public String getCurso() {
         return curso;
     }
-}
+};

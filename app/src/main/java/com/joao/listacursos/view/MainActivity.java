@@ -1,113 +1,84 @@
 package com.joao.listacursos.view;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.joao.listacursos.R;
 import com.joao.listacursos.controller.MainController;
+import com.google.android.material.button.MaterialButton;
 import com.joao.listacursos.model.AlunoRepository;
 import com.joao.listacursos.util.SpinnerConfig;
-import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
-    private TextInputEditText edtPrimeiroNome, edtSobrenome, edtTelefone;
-    private Spinner spinnerCursos;
-    private Button btnSalvar, btnLimpar, btnMeusDados, btnFinalizar;
+    private TextInputEditText primeiroNomeEdit, sobrenomeEdit, telefoneEdit;
+    private Spinner cursosSpinner;
+    private MaterialButton salvarButton, limparButton, finalizarButton;
     private MainController controller;
-    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate chamado");
-
-        initializeComponents();
-        setupController();
-        setupSpinner();
-        controller.carregarDadosSalvos();
+        initComponents();
+        initController();
+        initSpinner();
         setupListeners();
+        controller.loadSavedData();
     }
 
-    private void initializeComponents() {
-        Log.d(TAG, "Inicializando componentes");
-        edtPrimeiroNome = findViewById(R.id.edtPrimeiroNome);
-        edtSobrenome = findViewById(R.id.edtSobrenome);
-        edtTelefone = findViewById(R.id.edtTelefone);
-        spinnerCursos = findViewById(R.id.spinnerCursos);
-        btnSalvar = findViewById(R.id.btnSalvar);
-        btnLimpar = findViewById(R.id.btnLimpar);
-        btnMeusDados = findViewById(R.id.btnMeusDados);
-        btnFinalizar = findViewById(R.id.btnFinalizar);
+    private void initComponents() {
+        primeiroNomeEdit = findViewById(R.id.edtPrimeiroNome);
+        sobrenomeEdit = findViewById(R.id.edtSobrenome);
+        telefoneEdit = findViewById(R.id.edtTelefone);
+        cursosSpinner = findViewById(R.id.spinnerCursos);
+        salvarButton = findViewById(R.id.btnSalvar);
+        limparButton = findViewById(R.id.btnLimpar);
+        finalizarButton = findViewById(R.id.btnFinalizar);
     }
 
-    private void setupController() {
-        Log.d(TAG, "Configurando controller");
+    private void initController() {
         controller = new MainController(new AlunoRepository(this), this);
     }
 
-    private void setupSpinner() {
-        Log.d(TAG, "Configurando spinner");
-        SpinnerConfig.getInstance(this).configure(this, spinnerCursos);
+    private void initSpinner() {
+        SpinnerConfig.getInstance(this).configure(this, cursosSpinner);
     }
 
     private void setupListeners() {
-        Log.d(TAG, "Configurando listeners");
-        btnSalvar.setOnClickListener(v -> {
-            Log.d(TAG, "Botão Salvar clicado");
-            controller.salvarDados(
-                    edtPrimeiroNome.getText().toString(),
-                    edtSobrenome.getText().toString(),
-                    edtTelefone.getText().toString(),
-                    spinnerCursos.getSelectedItem().toString()
-            );
-        });
-        btnLimpar.setOnClickListener(v -> {
-            Log.d(TAG, "Botão Limpar clicado");
-            controller.limparCampos(
-                    edtPrimeiroNome.getText().toString(),
-                    edtSobrenome.getText().toString(),
-                    edtTelefone.getText().toString(),
-                    spinnerCursos.getSelectedItemPosition()
-            );
-        });
-        btnMeusDados.setOnClickListener(v -> {
-            Log.d(TAG, "Botão Ver Meus Dados clicado");
-            controller.verMeusDados();
-        });
-        btnFinalizar.setOnClickListener(v -> {
-            Log.d(TAG, "Botão Finalizar clicado");
-            controller.finalizarApp();
-        });
+        salvarButton.setOnClickListener(v -> controller.saveData(
+                primeiroNomeEdit.getText().toString(),
+                sobrenomeEdit.getText().toString(),
+                telefoneEdit.getText().toString(),
+                cursosSpinner.getSelectedItem().toString()));
+        limparButton.setOnClickListener(v -> controller.clearFields(
+                primeiroNomeEdit.getText().toString(),
+                sobrenomeEdit.getText().toString(),
+                telefoneEdit.getText().toString(),
+                cursosSpinner.getSelectedItemPosition()));
+        finalizarButton.setOnClickListener(v -> controller.finishApp());
     }
 
     public void clearFields() {
-        Log.d(TAG, "Limpando campos");
-        edtPrimeiroNome.setText("");
-        edtSobrenome.setText("");
-        edtTelefone.setText("");
-        spinnerCursos.setSelection(0);
+        primeiroNomeEdit.setText("");
+        sobrenomeEdit.setText("");
+        telefoneEdit.setText("");
+        cursosSpinner.setSelection(0);
     }
 
     public void setPrimeiroNome(String primeiroNome) {
-        Log.d(TAG, "Definindo primeiroNome: " + primeiroNome);
-        edtPrimeiroNome.setText(primeiroNome);
+        primeiroNomeEdit.setText(primeiroNome);
     }
 
     public void setSobrenome(String sobrenome) {
-        Log.d(TAG, "Definindo sobrenome: " + sobrenome);
-        edtSobrenome.setText(sobrenome);
+        sobrenomeEdit.setText(sobrenome);
     }
 
     public void setTelefone(String telefone) {
-        Log.d(TAG, "Definindo telefone: " + telefone);
-        edtTelefone.setText(telefone);
+        telefoneEdit.setText(telefone);
     }
 
     public void setCurso(String curso) {
-        Log.d(TAG, "Definindo curso: " + curso);
-        SpinnerConfig.getInstance(this).selectCurso(spinnerCursos, curso);
+        SpinnerConfig.getInstance(this).selectCurso(cursosSpinner, curso);
     }
 };
